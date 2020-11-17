@@ -1,0 +1,1 @@
+etchash-solo-pool
