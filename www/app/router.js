@@ -1,13 +1,14 @@
-import EmberRouter from '@ember/routing/router';
+import Ember from 'ember';
 import config from './config/environment';
 
-var Router = EmberRouter.extend({
+var Router = Ember.Router.extend({
   location: config.locationType
 });
 
 Router.map(function() {
   this.route('account', { path: '/account/:login' }, function() {
     this.route('payouts');
+    this.route('rewards');
   });
   this.route('not-found');
 
@@ -17,9 +18,11 @@ Router.map(function() {
   });
 
   this.route('help');
+  //this.route('help-ar');
   this.route('payments');
   this.route('miners');
   this.route('about');
+  //this.route('about-ar');
 });
 
 export default Router;

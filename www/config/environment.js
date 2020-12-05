@@ -1,8 +1,8 @@
-'use strict';
+/* jshint node: true */
 
 module.exports = function(environment) {
-  let ENV = {
-    modulePrefix: 'open-ethereum-pool',
+  var ENV = {
+    modulePrefix: 'open-social-pool',
     environment: environment,
     rootURL: '/',
     locationType: 'hash',
@@ -15,22 +15,27 @@ module.exports = function(environment) {
 
     APP: {
       // API host and port
-      ApiUrl: '//example.net/',
-
+      ApiUrl: '//11.22.33.44:7070/',
+      PoolName: 'ΞTChash Solo Pool',
+      CompanyName: 'ΞTChash Solo Pool',
       // HTTP mining endpoint
-      HttpHost: 'http://example.net',
-      HttpPort: 8888,
+      HttpHost: '11.22.33.44',
+      HttpPort: 8008,
 
       // Stratum mining endpoint
-      StratumHost: 'example.net',
+      StratumHost: '11.22.33.44',
       StratumPort: 8008,
 
       // Fee and payout details
-      PoolFee: '1%',
-      PayoutThreshold: '0.5 Ether',
+      PoolFee: '1.0%',
+      PayoutThreshold: '3.0',
+      PayoutInterval: '20m',
 
       // For network hashrate (change for your favourite fork)
-      BlockTime: 14.4
+      BlockTime: 14.4,
+      BlockReward: 3.2,
+      Unit: 'ETC:',
+
     }
   };
 
@@ -38,7 +43,7 @@ module.exports = function(environment) {
     /* Override ApiUrl just for development, while you are customizing
       frontend markup and css theme on your workstation.
     */
-    ENV.APP.ApiUrl = 'http://localhost:8081/'
+    ENV.APP.ApiUrl = '//11.22.33.44:7070/'
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
