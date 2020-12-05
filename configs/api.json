@@ -1,6 +1,6 @@
 {
 	"threads": 2,
-	"coin": "eth-solo",
+	"coin": "etc-solo",
 	"name": "main",
 	"pplns": 1000,
 
@@ -51,16 +51,16 @@
 		"enabled": true,
 		"purgeOnly": false,
 		"purgeInterval": "10m",
-		"listen": "0.0.0.0:8181",
-                "poolCharts":"0 */30 * * * *",
+		"listen": "127.0.0.1:8080",
+                "poolCharts":"*/20 * * * *",
                 "poolChartsNum":74,
-                "minerCharts":"0 */30 * * * *",
+                "minerCharts":"*/20 * * * *",
                 "minerChartsNum":74,
 		"statsCollectInterval": "5s",
 		"hashrateWindow": "30m",
 		"hashrateLargeWindow": "3h",
 		"luckWindow": [64, 128, 256],
-		"payments": 30,
+		"payments": 50,
 		"blocks": 50
 	},
 

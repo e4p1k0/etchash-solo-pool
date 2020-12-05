@@ -1,18 +1,18 @@
 {
 	"threads": 2,
-	"coin": "eth-solo",
+	"coin": "etc-solo",
 	"name": "main",
 	"pplns": 1000,
 
 	"proxy": {
-		"enabled": true,
-		"listen": "0.0.0.0:8887",
+		"enabled": false,
+		"listen": "0.0.0.0:8881",
 		"limitHeadersSize": 1024,
 		"limitBodySize": 256,
 		"behindReverseProxy": false,
 		"blockRefreshInterval": "120ms",
 		"stateUpdateInterval": "3s",
-		"difficulty": 4000000000,
+		"difficulty": 64000000000,
 		"hashrateExpiration": "3h",
 
 		"healthCheck": true,
@@ -20,7 +20,7 @@
 
 		"stratum": {
 			"enabled": true,
-			"listen": "0.0.0.0:7007",
+			"listen": "0.0.0.0:8001",
 			"timeout": "120s",
 			"maxConn": 8192
 		},
@@ -34,7 +34,7 @@
 				"enabled": false,
 				"ipset": "blacklist",
 				"timeout": 1800,
-				"invalidPercent": 100,
+				"invalidPercent": 30,
 				"checkThreshold": 30,
 				"malformedLimit": 5
 			},
@@ -51,7 +51,11 @@
 		"enabled": false,
 		"purgeOnly": false,
 		"purgeInterval": "10m",
-		"listen": "0.0.0.0:8080",
+		"listen": "0.0.0.0:8181",
+                "poolCharts":"0 */30 * * * *",
+                "poolChartsNum":74,
+                "minerCharts":"0 */30 * * * *",
+                "minerChartsNum":74,
 		"statsCollectInterval": "5s",
 		"hashrateWindow": "30m",
 		"hashrateLargeWindow": "3h",
@@ -85,7 +89,7 @@
 		"enabled": false,
 		"poolFee": 1.0,
 		"poolFeeAddress": "",
-		"donate": true,
+		"donate": false,
 		"depth": 120,
 		"immatureDepth": 20,
 		"keepTxFees": false,
@@ -95,16 +99,16 @@
 	},
 
 	"payouts": {
-		"enabled": false,
-		"requirePeers": 25,
-		"interval": "120m",
+		"enabled": true,
+		"requirePeers": 15,
+		"interval": "20m",
 		"daemon": "http://127.0.0.1:8545",
 		"timeout": "10s",
 		"address": "0x0",
 		"gas": "21000",
-		"gasPrice": "50000000000",
-		"autoGas": true,
-		"threshold": 500000000,
+		"gasPrice": "1000000000",
+		"autoGas": false,
+		"threshold": 3000000000,
 		"bgsave": false
 	},
 

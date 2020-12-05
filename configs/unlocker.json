@@ -1,6 +1,6 @@
 {
 	"threads": 2,
-	"coin": "eth-solo",
+	"coin": "etc-solo",
 	"name": "main",
 	"pplns": 1000,
 
@@ -86,9 +86,9 @@
 	},
 
 	"unlocker": {
-		"enabled": false,
+		"enabled": true,
 		"poolFee": 1.0,
-		"poolFeeAddress": "",
+		"poolFeeAddress": "0x0",
 		"donate": false,
 		"depth": 120,
 		"immatureDepth": 20,
@@ -99,16 +99,16 @@
 	},
 
 	"payouts": {
-		"enabled": true,
-		"requirePeers": 15,
-		"interval": "20m",
+		"enabled": false,
+		"requirePeers": 25,
+		"interval": "120m",
 		"daemon": "http://127.0.0.1:8545",
 		"timeout": "10s",
-		"address": "0xf616d8d43635098d7a145d8bc5418d95d6a3d8c0",
+		"address": "0x0",
 		"gas": "21000",
 		"gasPrice": "50000000000",
 		"autoGas": true,
-		"threshold": 1000000000,
+		"threshold": 500000000,
 		"bgsave": false
 	},
 

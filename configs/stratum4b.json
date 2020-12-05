@@ -1,18 +1,18 @@
 {
 	"threads": 2,
-	"coin": "eth",
+	"coin": "etc-solo",
 	"name": "main",
 	"pplns": 1000,
 
 	"proxy": {
 		"enabled": true,
-		"listen": "0.0.0.0:8888",
+		"listen": "127.0.0.1:8888",
 		"limitHeadersSize": 1024,
 		"limitBodySize": 256,
 		"behindReverseProxy": false,
 		"blockRefreshInterval": "120ms",
 		"stateUpdateInterval": "3s",
-		"difficulty": 2000000000,
+		"difficulty": 4000000000,
 		"hashrateExpiration": "3h",
 
 		"healthCheck": true,
@@ -48,7 +48,7 @@
 	},
 
 	"api": {
-		"enabled": true,
+		"enabled": false,
 		"purgeOnly": false,
 		"purgeInterval": "10m",
 		"listen": "0.0.0.0:8080",
