@@ -1,6 +1,8 @@
 ## ETChash-Solo-Pool
 Based on https://github.com/caesarsalad/eth-solo-pool and https://github.com/etclabscore/open-etc-pool
+
 Web frontend from https://github.com/esprezzo/open-perkle-pool
+
 Originally from https://github.com/sammy007/open-ethereum-pool
 
 ### Building on Ubuntu 18.04
