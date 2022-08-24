@@ -9,7 +9,7 @@ import (
 
 	"gopkg.in/redis.v3"
 
-	"github.com/etclabscore/open-etc-pool/util"
+	"github.com/e4p1k0/etchash-solo-pool/util"
 )
 
 type Config struct {
@@ -373,7 +373,7 @@ func (r *RedisClient) WriteBlock(login, id string, params []string, diff, roundD
                 if err != nil {
                         return false, err
                 }
-		
+
 		sharesMap, _ := cmds[len(cmds) - 3].(*redis.StringStringMapCmd).Result()
                 totalShares := int64(0)
                 for _, v := range sharesMap {

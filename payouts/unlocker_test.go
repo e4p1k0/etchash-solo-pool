@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/etclabscore/open-etc-pool/rpc"
-	"github.com/etclabscore/open-etc-pool/storage"
+	"github.com/e4p1k0/etchash-solo-pool/rpc"
+	"github.com/e4p1k0/etchash-solo-pool/storage"
 )
 
 func TestMain(m *testing.M) {

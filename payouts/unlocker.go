@@ -10,9 +10,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/math"
 
-	"github.com/etclabscore/open-etc-pool/rpc"
-	"github.com/etclabscore/open-etc-pool/storage"
-	"github.com/etclabscore/open-etc-pool/util"
+	"github.com/e4p1k0/etchash-solo-pool/rpc"
+	"github.com/e4p1k0/etchash-solo-pool/storage"
+	"github.com/e4p1k0/etchash-solo-pool/util"
 )
 
 type UnlockerConfig struct {
@@ -502,11 +502,11 @@ func calculateRewardsForFinder(finder string, total int64, reward *big.Rat)(map[
 	rewards := make(map[string]int64)
 	percents := make(map[string]*big.Rat)
 
-	login := finder 
+	login := finder
 	percents[login] = big.NewRat(total, total)
 	workerReward := new(big.Rat).Mul(reward, percents[login])
 	rewards[login] += weiToShannonInt64(workerReward)
-	
+
 	return rewards, percents
 }
 
