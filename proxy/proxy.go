@@ -26,6 +26,7 @@ type ProxyServer struct {
 	upstreams          []*rpc.RPCClient
 	backend            *storage.RedisClient
 	diff               string
+	algorithm          string
 	policy             *policy.PolicyServer
 	hashrateExpiration time.Duration
 	failsCount         int64
@@ -34,11 +35,19 @@ type ProxyServer struct {
 	sessionsMu sync.RWMutex
 	sessions   map[*Session]struct{}
 	timeout    time.Duration
-	Extranonce string
+	// Extranonce
+	Extranonces map[string]bool
 }
 
 type jobDetails struct {
 	JobID      string
+	SeedHash   string
+	HeaderHash string
+	Height     string
+	Epoch      int64
+}
+
+type staleJob struct {
 	SeedHash   string
 	HeaderHash string
 }
@@ -49,10 +58,18 @@ type Session struct {
 
 	// Stratum
 	sync.Mutex
-	conn           net.Conn
-	login          string
+	conn  net.Conn
+	login   string
+	lastErr error
+
+	stratum        int
+	algorithm      string
 	subscriptionID string
-	JobDeatils     jobDetails
+	Extranonce     string
+	ExtranonceSub  bool
+	JobDetails     jobDetails
+	staleJobs      map[string]staleJob
+	staleJobIDs    []string
 }
 
 func NewProxy(cfg *Config, backend *storage.RedisClient) *ProxyServer {
@@ -64,6 +81,16 @@ func NewProxy(cfg *Config, backend *storage.RedisClient) *ProxyServer {
 	proxy := &ProxyServer{config: cfg, backend: backend, policy: policy}
 	proxy.diff = util.GetTargetHex(cfg.Proxy.Difficulty)
 
+    // set default Algorithm
+	switch cfg.Proxy.Algorithm {
+	case "progpow":
+		proxy.algorithm = "progpow"
+		break
+	default:
+		proxy.algorithm = "etchash"
+		break
+	}
+
 	proxy.upstreams = make([]*rpc.RPCClient, len(cfg.Upstream))
 	for i, v := range cfg.Upstream {
 		proxy.upstreams[i] = rpc.NewRPCClient(v.Name, v.Url, v.Timeout)
@@ -73,6 +100,7 @@ func NewProxy(cfg *Config, backend *storage.RedisClient) *ProxyServer {
 
 	if cfg.Proxy.Stratum.Enabled {
 		proxy.sessions = make(map[*Session]struct{})
+		proxy.Extranonces = make(map[string]bool)
 		go proxy.ListenTCP()
 	}
 
@@ -250,7 +278,7 @@ func (cs *Session) handleMessage(s *ProxyServer, r *http.Request, req *JSONRpcRe
 	case "eth_submitWork":
 		if req.Params != nil {
 			var params []string
-			err := json.Unmarshal(*req.Params, &params)
+			err := json.Unmarshal(req.Params, &params)
 			if err != nil {
 				log.Printf("Unable to parse params from %v", cs.ip)
 				s.policy.ApplyMalformedPolicy(cs.ip)
@@ -278,12 +306,12 @@ func (cs *Session) handleMessage(s *ProxyServer, r *http.Request, req *JSONRpcRe
 	}
 }
 
-func (cs *Session) sendResult(id *json.RawMessage, result interface{}) error {
+func (cs *Session) sendResult(id json.RawMessage, result interface{}) error {
 	message := JSONRpcResp{Id: id, Version: "2.0", Error: nil, Result: result}
 	return cs.enc.Encode(&message)
 }
 
-func (cs *Session) sendError(id *json.RawMessage, reply *ErrorReply) error {
+func (cs *Session) sendError(id json.RawMessage, reply *ErrorReply) error {
 	message := JSONRpcResp{Id: id, Version: "2.0", Error: reply}
 	return cs.enc.Encode(&message)
 }

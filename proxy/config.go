@@ -17,7 +17,7 @@ type Config struct {
 	Threads int `json:"threads"`
 
 	Coin  string         `json:"coin"`
-    Pplns int64          `json:"pplns"`
+	Pplns int64          `json:"pplns"`
 	Redis storage.Config `json:"redis"`
 
 	BlockUnlocker payouts.UnlockerConfig `json:"unlocker"`
@@ -39,11 +39,15 @@ type Proxy struct {
 	Difficulty           int64  `json:"difficulty"`
 	StateUpdateInterval  string `json:"stateUpdateInterval"`
 	HashrateExpiration   string `json:"hashrateExpiration"`
+	Algorithm            string `json:"algorithm"`
+
+	ForkBlock []ForkBlock `json:"forkBlock"`
 
 	Policy policy.Config `json:"policy"`
 
 	MaxFails    int64 `json:"maxFails"`
 	HealthCheck bool  `json:"healthCheck"`
+	Debug       bool  `json:"debug"`
 
 	Stratum Stratum `json:"stratum"`
 }
@@ -56,6 +60,11 @@ type Stratum struct {
 	TLS      bool   `json:"tls"`
 	CertFile string `json:"certFile"`
 	KeyFile  string `json:"keyFile"`
+}
+
+type ForkBlock struct {
+	Block     uint64 `json:"block"`
+	Algorithm string `json:"algorithm"`
 }
 
 type Upstream struct {
